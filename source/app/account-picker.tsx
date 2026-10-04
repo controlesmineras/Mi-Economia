@@ -1,0 +1,4 @@
+'use client';
+import type {Movement} from '@/lib/local-records';
+import {Select,SelectTrigger,SelectValue,SelectContent,SelectItem} from '@/components/ui/select';
+export default function AccountPicker({rows,value,onChange,label='Cuenta',empty='Otro medio / sin cuenta registrada',exclude=''}:{rows:Movement[];value:string;onChange:(value:string)=>void;label?:string;empty?:string;exclude?:string}){return <label>{label}<Select value={value||'none'} onValueChange={v=>onChange(v==='none'?'':v)}><SelectTrigger className="w-full"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">{empty}</SelectItem>{rows.filter(r=>r.type==='account_open'&&r.id!==exclude).map(r=><SelectItem value={r.id} key={r.id}>{r.concept}{r.origin?' · '+r.origin:''}</SelectItem>)}</SelectContent></Select></label>}
